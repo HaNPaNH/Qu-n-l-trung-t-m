@@ -20,7 +20,7 @@
                                 <button type="submit" class="btn btn-dark btn-block">Get password</button>
                             </div>
                             <br>
-                            <div class="d-grid mx-auto"><a href="{{ route('register') }}" style="text-decoration:none; color: black;">Return to sign in</a></div>
+                            <div class="d-grid mx-auto"><a href="{{ route('login') }}" style="text-decoration:none; color: black;">Return to sign in</a></div>
                             <!-- <p class="mb-1">
                                 <a href="/forgot.blade.php">I forgot my password</a>
                             </p>

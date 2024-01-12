@@ -13,27 +13,35 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- navbar navbar-inverse -->
+            <!-- collapse navbar-collapse -->
+            <div class="navbar navbar-inverse" id="navbarNav">
                 <br><br><br>
-                <ul class="navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     @guest
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item right">
                         <a class="nav-link" href="{{ route('register') }}">Register</a>
-                    </li> -->
+                    </li>
                     @else
                     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-                            <ul class="navbar-nav">
+                            <!-- <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                                 </li>
                                 <li class="nav-item d-none d-sm-inline-block">
-                                    <a href="index3.html" class="nav-link">Home</a>
+                                    <a href="#" class="nav-link">Home</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             <ul class="navbar-nav ml-auto">
+                                <!-- <li>
+                                    <a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link" href=""><img src="{{asset('assets/download 10.png')}}" alt=""></a>
                                 </li>  

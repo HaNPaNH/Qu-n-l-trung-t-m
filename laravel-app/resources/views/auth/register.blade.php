@@ -1,7 +1,7 @@
 @extends('auth.layouts')
 @section('content')
 <main class="signup-form">
-    <div class="cotainer">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card">
@@ -12,13 +12,12 @@
                             <div class="form-group mb-3">
                                 <!-- <input type="text" placeholder="Name" id="name" class="form-control" name="name"
                                     required autofocus> -->
-                                <select name="name" id="name" class="form-control" required autofocus>
-                                    <option value="admin">Admin</option>
-                                    <option value="teacher">Teacher</option>
-                                    <option value="student">Student</option>
+                                <select name="role" id="role" class="form-control" required autofocus>
+                                    <option value=1>Teacher</option>
+                                    <option value=2>Student</option>
                                 </select>
-                                @if ($errors->has('name'))
-                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                @if ($errors->has('role'))
+                                <span class="text-danger">{{ $errors->first('role') }}</span>
                                 @endif
                             </div>
                             <div class="form-group mb-3">
