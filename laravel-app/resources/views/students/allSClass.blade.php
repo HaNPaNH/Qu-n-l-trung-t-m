@@ -2,37 +2,24 @@
 @section('content')
 <h3 class="fw-semibold">TẤT CẢ LỚP HỌC</h3>
 <div class="container">
-  <div class="row bg-warning">
-    <div class="col-md-12">
-    <br>
-      <div class="course">
-        <h4>Mã lớp: 11</h4>
-        <p>Tên lớp: Tiếng Nhật căn bản 1</p>
-        <p>Ngày khai giảng: 01/11/2023</p>
-        <div >
-          <button type="button" class="btn btn-light disabled">Đăng ký</button>
+    @foreach($classrooms as $classroom)
+    <div class="row bg-warning my-3">
+        <div class="col-md-12">
+            <div class="course py-3">
+                <h4>Mã lớp: {{ $classroom->id }}</h4>
+                <p>Tên lớp: {{ $classroom->name }}</p>
+                <p>Ngày khai giảng: {{ $classroom->start_day }}</p>
+                <!-- <p>Số lượng dự đoán: {{ $classroom->prediction_number }}</p>
+                <p>Số lượng thực tế: {{ $classroom->actual_number }}</p> -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="/detailClass/{{ $classroom->id }}"><button class="btn btn-light ">Xem chi tiết</button></a>
+                    <a href="/registerSClass/{{ $classroom->id }}"><button type="button" class="btn btn-light">Đăng
+                            ký</button></a>
+                </div>
+            </div>
         </div>
-        <br>
-      </div>
     </div>
-  </div>
-  <br>
-  <div class="row bg-warning">
-    <div class="col-md-12">
-    <br>
-      <div class="course">
-        <h4>Mã lớp: 21</h4>
-        <p>Tên lớp: Tiếng Nhật căn bản 2</p>
-        <p>Ngày khai giảng: 01/11/2023</p>
-        <div >
-          <a href="{{ route ('billSClass') }}"><button class="btn btn-light">Đăng ký</button></a>
-        </div>
-        <br>
-      </div>
-    </div>
-  </div>
-  <br>
-  <h3 class='text-xxl-end'><a href="{{ route('studentClass') }}" class="text-reset">LỚP HỌC CỦA TÔI >></a></h3>
+    @endforeach
+    <h3 class='text-xxl-end'><a href="{{ route('studentClass') }}" class="text-reset">LỚP HỌC CỦA TÔI >></a></h3>
 </div>
 @endsection
-

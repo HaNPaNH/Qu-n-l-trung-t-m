@@ -1,10 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Hash;
-use Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Facade;
 class CustomAuthController extends Controller
 {
     public function index()
@@ -37,7 +38,7 @@ class CustomAuthController extends Controller
     public function customRegistration(Request $request)
     {
         $request->validate([
-            'role' => 'required|in:1,2',
+            // 'role' => 'required|in:1,2',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
@@ -49,40 +50,10 @@ class CustomAuthController extends Controller
         if ($role == 1) {
             // Redirect to teacher page
             return redirect('/teacherClass');
-        } elseif ($role == 2) {
+        } else {
             // Redirect to student page
             return redirect('/studentClass');
         }
-    }
-    public function create(array $data)
-    {
-        return User::create([
-            // 'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role']
-        ]);
-    }
-    public function admin()
-    {
-        if (Auth::check()) {
-            return view('admins.admin');
-        }
-        return redirect("login")->withSuccess('You are not allowed to access');
-    }
-    public function teacherClass()
-    {
-        if (Auth::check()) {
-            return view('teachers.teacherClass');
-        }
-        return redirect("login")->withSuccess('You are not allowed to access');
-    }
-    public function studentClass()
-    {
-        if (Auth::check()) {
-            return view('students.studentClass');
-        }
-        return redirect("login")->withSuccess('You are not allowed to access');
     }
     public function signOut()
     {
@@ -90,32 +61,9 @@ class CustomAuthController extends Controller
         Auth::logout();
         return Redirect('login');
     }
+    
     public function forgot()
     {
          return view('auth.forgotpass');
-    }
-    public function allTClass()
-    {
-         return view('teachers.allTClass');
-    }
-    public function allSClass()
-    {
-         return view('students.allSClass');
-    }
-    public function waitClass()
-    {
-         return view('teachers.waitClass');
-    }
-    public function billSClass()
-    {
-         return view('students.billSClass');
-    }
-    public function listOClass()
-    {
-         return view('teachers.listOClass');
-    }
-    public function detailClass()
-    {
-         return view('students.detailClass');
     }
 }

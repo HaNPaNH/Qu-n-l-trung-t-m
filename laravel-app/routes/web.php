@@ -1,6 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,20 +23,26 @@ Route::get('forgot', [CustomAuthController::class, 'forgot'])->name('forgot');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 //Class - teacher-student
-Route::get('listOClass', [CustomAuthController::class, 'listOClass'])->name('listOClass');
-Route::get('detailClass', [CustomAuthController::class, 'detailClass'])->name('detailClass');
+Route::get('listSClass', [ClassroomController::class, 'listSClass'])->name('listSClass');
+Route::get('detailClass/{id}', [ClassroomController::class, 'detailClass'])->name('detailClass');
+
+Route::get('registerSClass/{id}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
+Route::get('confirm-register/{id}', [ClassroomController::class, 'confirmRegister'])->name('confirmRegister');
+Route::get('cancel-register', [ClassroomController::class, 'cancelRegister'])->name('cancelRegister');
 
 //Class - teacher
-Route::get('allTClass', [CustomAuthController::class, 'allTClass'])->name('allTClass');
-Route::get('teacherClass', [CustomAuthController::class, 'teacherClass'])->name('teacherClass');
-Route::get('waitClass', [CustomAuthController::class, 'waitClass'])->name('waitClass');
+Route::get('allTClass', [TeacherController::class, 'allTClass'])->name('allTClass');
+Route::get('teacherClass', [TeacherController::class, 'teacherClass'])->name('teacherClass');
+Route::get('waitClass', [TeacherController::class, 'waitClass'])->name('waitClass');
 
 //Class - student
-Route::get('allSClass', [CustomAuthController::class, 'allSClass'])->name('allSClass');
-Route::get('studentClass', [CustomAuthController::class, 'studentClass'])->name('studentClass');
-Route::get('billSClass', [CustomAuthController::class, 'billSClass'])->name('billSClass');
+Route::get('allSClass', [StudentController::class, 'allSClass'])->name('allSClass');
+Route::get('studentClass', [StudentController::class, 'studentClass'])->name('studentClass');
+Route::get('billSClass', [StudentController::class, 'billSClass'])->name('billSClass');
 
 //Admin
-Route::get('admin', [CustomAuthController::class, 'admin'])->name('admin');
+Route::get('admin', [AdminController::class, 'admin'])->name('admin');
+Route::get('mStudent', [AdminController::class, 'mStudent'])->name('mStudent');
+Route::get('mSStudent', [AdminController::class, 'mSStudent'])->name('mSStudent');
 
-Route::prefix('')->group(function () {});
+// Route::prefix('')->group(function () {});
