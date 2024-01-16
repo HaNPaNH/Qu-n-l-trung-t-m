@@ -41,22 +41,19 @@ class ClassroomController extends Controller
     {
         // Lấy thông tin người dùng đăng nhập
         // $userId = Auth::user()->id;
-        $user = User::find($id);
-        $user_id = $user->id;
-        // $student= DB::table('students')
-        // ->where('students.user_id', '=', Auth::id())
-        // ->select('students.*')
-        // ->first();
-
-        // Thêm dữ liệu vào bảng students (nếu chưa tồn tại)
-        $student = Student::firstOrNew(['user_id' => $user_id]); 
+        // $user = User::find($id);
+        // $user_id = $user->id;
+        
+        $student= Student::where('students.user_id', '=', Auth::id())
+        ->select('students.*')
+        ->first();
         
         // Lấy thông tin lớp học
         $classroom = Classroom::find($id);
         
         // Thực hiện đăng ký lớp học
         Student_class::create([
-            'student_id' => $classroom->id,
+            'student_id' => $student->id,
             'class_id' => $classroom->id,
         ]);
         
