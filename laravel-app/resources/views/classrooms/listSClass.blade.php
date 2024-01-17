@@ -1,10 +1,9 @@
 @extends('auth.layouts')
 @section('content')
-<div class="container">
+<div class="container bg-warning">
     <div class="row justify-content-center">
         <div class="card-body">
             <h3 class="text-center">DANH SÁCH LỚP</h3>
-            <br><br>
             <div class="border">
                 <table class="table">
                     <thead class="text-center">
@@ -15,11 +14,11 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach($listSClass as $SClass)
+                        @foreach($listClassStudents as $index => $listClassStudent)
                         <tr>
-                            <td>{{ $SClass->STT }}</td>
-                            <td>{{ $SClass->student_id }}</td>
-                            <td>{{ $SClass->student_name }}</td>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $listClassStudent->student_id }}</td>
+                            <td>{{ $listClassStudent->student_name }}</td>
                         </tr>
                         @endforeach
                     </tbody>

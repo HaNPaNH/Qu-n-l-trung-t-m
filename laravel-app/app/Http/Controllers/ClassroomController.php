@@ -19,14 +19,14 @@ class ClassroomController extends Controller
         //     ->join('students', 'students.student_id', '=', 'student_classes.student_id')
         //     ->select(, 'students.name', 'student_classes.id')
         //     ->get();
-        $listSClass = DB::table('student_classes')
+        $listClassStudents = DB::table('student_classes')
           ->join('classrooms', 'student_classes.class_id', '=', 'classrooms.id')
           ->join('students', 'student_classes.student_id', '=', 'students.id')
           ->where('student_classes.class_id', $id)
           ->select('student_classes.student_id as student_id', 'students.name as student_name')
-          ->first();
+          ->get();
         // dd($listSClass);
-        return view('classrooms.listSClass', compact('listSClass'));
+        return view('classrooms.listSClass', compact('listClassStudents'));
     }
     public function detailClass($id)
     {
