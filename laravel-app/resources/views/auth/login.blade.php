@@ -23,7 +23,6 @@
                                 <span class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
                             </div>
-                        
                             <div class="form-group mb-3">
                                 <div class="checkbox">
                                     <label>
@@ -35,8 +34,10 @@
                                 <button type="submit" class="btn btn-dark btn-block">Sign in</button>
                             </div>
                             <br>
-                            <div class="d-grid mx-auto"><a href="{{ route('forgot') }}" style="text-decoration:none; color: black;">Forgot password</a></div>
-                            <div class="d-grid mx-auto"><a href="{{ route('register') }}" style="text-decoration:none; color: black;">No account? Register now</a></div>
+                            <div class="d-grid mx-auto"><a href="{{ route('forgot') }}"
+                                    style="text-decoration:none; color: black;">Forgot password</a></div>
+                            <div class="d-grid mx-auto"><a href="{{ route('register') }}"
+                                    style="text-decoration:none; color: black;">No account? Register now</a></div>
                             <!-- <p class="mb-1">
                                 <a href="/forgot.blade.php">I forgot my password</a>
                             </p>

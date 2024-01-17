@@ -23,22 +23,28 @@ Route::get('forgot', [CustomAuthController::class, 'forgot'])->name('forgot');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 //Class - teacher-student
-Route::get('listSClass', [ClassroomController::class, 'listSClass'])->name('listSClass');
+Route::get('listSClass/{id}', [ClassroomController::class, 'listSClass'])->name('listSClass');
 Route::get('detailClass/{id}', [ClassroomController::class, 'detailClass'])->name('detailClass');
 
 Route::get('registerSClass/{id}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
-Route::get('confirm-register/{id}', [ClassroomController::class, 'confirmRegister'])->name('confirmRegister');
+Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmRegister'])->name('confirmRegister');
 Route::get('cancel-register', [ClassroomController::class, 'cancelRegister'])->name('cancelRegister');
 
+Route::get('addSInfor',[ClassroomController::class, 'addSInfor'])->name('addSInfor');
+Route::post('saveSInfor', [ClassroomController::class, 'saveSInfor'])->name('saveSInfor');
+
 //Class - teacher
+// Route::post('addTInfor',[TeacherController::class, 'addInfor'])->name('addInfor');
+
 Route::get('allTClass', [TeacherController::class, 'allTClass'])->name('allTClass');
 Route::get('teacherClass', [TeacherController::class, 'teacherClass'])->name('teacherClass');
 Route::get('waitClass', [TeacherController::class, 'waitClass'])->name('waitClass');
+Route::get('checkStudentClass/{classId}', [ClassroomController::class, 'checkStudentClass'])->name('checkStudentClass');
 
 //Class - student
 Route::get('allSClass', [StudentController::class, 'allSClass'])->name('allSClass');
 Route::get('studentClass', [StudentController::class, 'studentClass'])->name('studentClass');
-Route::get('billSClass', [StudentController::class, 'billSClass'])->name('billSClass');
+Route::get('billSClass/{studentClassId}', [StudentController::class, 'billSClass'])->name('billSClass');
 
 //Admin
 Route::get('admin', [AdminController::class, 'admin'])->name('admin');

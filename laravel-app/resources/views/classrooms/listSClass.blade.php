@@ -16,9 +16,11 @@
                     </thead>
                     <tbody class="text-center">
                         @foreach($listSClass as $SClass)
-                        <p>STT: {{ $SClass->STT }}</p>
-                        <p>Student ID: {{ $SClass->student_id }}</p>
-                        <p>Name: {{ $SClass->name }}</p>
+                        <tr>
+                            <td>{{ $SClass->STT }}</td>
+                            <td>{{ $SClass->student_id }}</td>
+                            <td>{{ $SClass->student_name }}</td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

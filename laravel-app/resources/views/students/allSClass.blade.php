@@ -13,8 +13,11 @@
                 <p>Số lượng thực tế: {{ $classroom->actual_number }}</p> -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a href="/detailClass/{{ $classroom->id }}"><button class="btn btn-light ">Xem chi tiết</button></a>
-                    <a href="/registerSClass/{{ $classroom->id }}"><button type="button" class="btn btn-light">Đăng
-                            ký</button></a>
+                    <!-- <a href="/registerSClass/{{ $classroom->id }}"><button type="button" class="btn btn-light">Đăng
+                            ký</button></a> -->
+                    <a href="{{ route('checkStudentClass', $classroom->id) }}">
+                        <button type="button" class="btn btn-light">Đăng ký</button>
+                    </a>
                 </div>
             </div>
         </div>
