@@ -6,7 +6,7 @@
     <div class="row bg-warning my-3">
         <div class="col-md-12">
             <div class="course py-3">
-                <h4>Mã lớp: {{ $classroom->id }}</h4>
+                <h4>Mã lớp: {{ $classroom->class_code }}</h4>
                 <p>Tên lớp: {{ $classroom->name }}</p>
                 <p>Ngày khai giảng: {{ $classroom->start_day }}</p>
                 <!-- <p>Số lượng dự đoán: {{ $classroom->prediction_number }}</p>

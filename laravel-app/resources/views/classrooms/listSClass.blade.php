@@ -3,7 +3,7 @@
 <div class="container bg-warning">
     <div class="row justify-content-center">
         <div class="card-body">
-            <h3 class="text-center">DANH SÁCH LỚP</h3>
+            <h3 class="text-center py-3">DANH SÁCH LỚP</h3>
             <div class="border">
                 <table class="table">
                     <thead class="text-center">

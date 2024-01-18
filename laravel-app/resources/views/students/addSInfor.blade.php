@@ -18,6 +18,9 @@
                                     <option value=5>Cấp độ 5</option>
                                 </select>
                             </div>
+                            <!-- <div class="form-group mb-3">
+                                <input type="hidden" name="student_code" id="student_code" value="{{ $studentCode }}">
+                            </div> -->
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="name" id="name" class="form-control" name="name"
                                     required>

@@ -4,13 +4,10 @@
     <h3 class="text-center">BIÊN LAI HỌC PHÍ</h3>
     <div class="row bg-warning my-3">
         <div class="border border-black p-3">
-            <p>Lớp học: {{ $bill->classroom_name }}</p>
-            <p>Học viên: {{ $bill->student_name }}</p>
-            <p>Học phí: {{ $bill->fee }}</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <!-- <button class="btn btn-light" type="button">Xác nhận đăng ký</button> -->
-                <button class="btn btn-light" type="button">Thanh toán ngay</button>
-            </div>
+            <p><b>Lớp học:</b> {{ $bill->classroom_name }}</p>
+            <p><b>Học viên:</b> {{ $bill->student_name }}</p>
+            <p><b>Học phí</b>: {{ $bill->fee }}</p>
+
         </div>
     </div>
     <br>

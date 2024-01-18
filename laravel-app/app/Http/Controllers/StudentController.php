@@ -11,18 +11,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class StudentController extends Controller
 {
-     //  public function addSInfor()
-     // {
-     //    if (Auth::check()) {
-     //        $student_classes = Student_class::all();
-     //        return view('students.studentClass', compact('student_classes'));
-     //    }
-     //    return redirect("login")->withSuccess('You are not allowed to access');
-     // }
      public function studentClass()
     {
         if (Auth::check()) {
-            $student_classes = Student_class::all();
+          $userId = Auth::user()->id;
+
+          $student_classes = DB::table('students')
+            ->join('student_classes','student_classes.student_id','=','students.id')
+            ->join('classrooms','classrooms.id','=','student_classes.class_id')
+            ->join('fees','fees.class_id','=','classrooms.id')
+            ->where('students.user_id','=', $userId)
+            ->select('classrooms.class_code','classrooms.name','student_classes.class_id', 'fees.paid_status as paid_status')
+            ->get();
+          //    dd($student_classes); 
+            
+          foreach ($student_classes as $student_class) {
+            if ($student_class->paid_status == 0) {
+                $student_class->paid_status_text = 'Chưa đóng';
+            } elseif ($student_class->paid_status == 1) {
+                $student_class->paid_status_text = 'Đã đóng';
+            }
+         }
             return view('students.studentClass', compact('student_classes'));
         }
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -48,5 +57,13 @@ class StudentController extends Controller
      // dd($bill);
      // Trả về view hiển thị hóa đơn với dữ liệu
      return view('students.billSClass', compact('bill'));
+     }
+     public function studentProfile()
+     {
+         if (Auth::check()) {
+          $userId = Auth::user()->id;
+          $student = Student::where('user_id', $userId)->first();
+         }
+         return view('students.studentProfile',compact('student'));
      }
 }

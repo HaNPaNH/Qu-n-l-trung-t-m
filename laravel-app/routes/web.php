@@ -42,6 +42,7 @@ Route::get('waitClass', [TeacherController::class, 'waitClass'])->name('waitClas
 Route::get('checkStudentClass/{classId}', [ClassroomController::class, 'checkStudentClass'])->name('checkStudentClass');
 
 //Class - student
+Route::get('studentProfile', [StudentController::class, 'studentProfile'])->name('studentProfile');
 Route::get('allSClass', [StudentController::class, 'allSClass'])->name('allSClass');
 Route::get('studentClass', [StudentController::class, 'studentClass'])->name('studentClass');
 Route::get('billSClass/{studentClassId}', [StudentController::class, 'billSClass'])->name('billSClass');

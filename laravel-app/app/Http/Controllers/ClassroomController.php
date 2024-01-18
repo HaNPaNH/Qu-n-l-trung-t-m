@@ -34,6 +34,7 @@ class ClassroomController extends Controller
      //     dd($classroom);
          return view('classrooms.detailClass', compact('classroom'));
     }
+    
     public function addSInfor()
     {
         return view('students.addSInfor');
@@ -70,7 +71,7 @@ class ClassroomController extends Controller
             // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
             return redirect()->route('studentClass');
         }
-        // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
+        // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
         return redirect()->route('registerSClass', $classId);
     }
     public function registerSClass($id)
@@ -91,7 +92,7 @@ class ClassroomController extends Controller
         // Lấy thông tin người dùng đăng nhập
         $userId = Auth::user()->id;
         
-        // Kiểm tra nếu người dùng đã có thông tin học sinh trong bảng students
+        // Thông tin học sinh trong bảng students
         $student = Student::where('user_id', $userId)->first();
         // dd($student);
 
