@@ -30,11 +30,12 @@ Route::get('registerSClass/{id}', [ClassroomController::class, 'registerSClass']
 Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmRegister'])->name('confirmRegister');
 Route::get('cancel-register', [ClassroomController::class, 'cancelRegister'])->name('cancelRegister');
 
-Route::get('addSInfor',[ClassroomController::class, 'addSInfor'])->name('addSInfor');
-Route::post('saveSInfor', [ClassroomController::class, 'saveSInfor'])->name('saveSInfor');
+Route::get('addStudentInformation',[ClassroomController::class, 'addStudentInformation'])->name('addStudentInformation');
+Route::post('saveStudentInformation', [ClassroomController::class, 'saveStudentInformation'])->name('saveStudentInformation');
 
 //Class - teacher
 // Route::post('addTInfor',[TeacherController::class, 'addInfor'])->name('addInfor');
+Route::get('teacherProfile', [TeacherController::class, 'teacherProfile'])->name('teacherProfile');
 
 Route::get('allTClass', [TeacherController::class, 'allTClass'])->name('allTClass');
 Route::get('teacherClass', [TeacherController::class, 'teacherClass'])->name('teacherClass');
@@ -43,6 +44,10 @@ Route::get('checkStudentClass/{classId}', [ClassroomController::class, 'checkStu
 
 //Class - student
 Route::get('studentProfile', [StudentController::class, 'studentProfile'])->name('studentProfile');
+
+Route::get('updateStudentInformation/{id}', [StudentController::class, 'editStudentInformation'])->name('editStudentInformation');
+Route::post('updateStudentInformation/{id}', [StudentController::class, 'updateStudentInformation'])->name('updateStudentInformation');
+
 Route::get('allSClass', [StudentController::class, 'allSClass'])->name('allSClass');
 Route::get('studentClass', [StudentController::class, 'studentClass'])->name('studentClass');
 Route::get('billSClass/{studentClassId}', [StudentController::class, 'billSClass'])->name('billSClass');

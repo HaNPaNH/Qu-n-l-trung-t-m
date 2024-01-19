@@ -12,6 +12,10 @@
             <p><b>Ngày kết thúc</b>: {{ $classroom->end_day }}</b></p>
         </div>
     </div>
-    <h4 class='text-xxl-end'><a href="{{ route('allSClass') }}" class="text-reset">TẤT CẢ LỚP HỌC >></a></h4>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
+        <a href="{{ route('allSClass') }}"><button class="btn btn-light">
+                <b>TẤT CẢ LỚP HỌC >></b>
+            </button></a>
+    </div>
 </div>
 @endsection

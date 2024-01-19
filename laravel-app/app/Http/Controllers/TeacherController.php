@@ -27,6 +27,16 @@ class TeacherController extends Controller
     }
     public function waitClass()
     {
+        
          return view('teachers.waitClass');
     }
+    public function teacherProfile()
+     {
+         if (Auth::check()) {
+          $userId = Auth::user()->id;
+          $teacher = Teacher::where('user_id', $userId)->first();
+        //   dd($student);
+         }
+         return view('teachers.teacherProfile',compact('teacher'));
+     }
 }

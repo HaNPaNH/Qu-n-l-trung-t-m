@@ -7,10 +7,12 @@
             <p><b>Lớp học:</b> {{ $bill->classroom_name }}</p>
             <p><b>Học viên:</b> {{ $bill->student_name }}</p>
             <p><b>Học phí</b>: {{ $bill->fee }}</p>
-
         </div>
     </div>
-    <br>
-    <h4 class='text-xxl-end'><a href="{{ route('allSClass') }}" class="text-reset">TẤT CẢ LỚP HỌC >></a></h4>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{{ route('studentClass') }}"><button class="btn btn-light">
+                <b>LỚP HỌC CỦA TÔI >></b>
+            </button></a>
+    </div>
 </div>
 @endsection

@@ -35,16 +35,16 @@ class ClassroomController extends Controller
          return view('classrooms.detailClass', compact('classroom'));
     }
     
-    public function addSInfor()
+    public function addStudentInformation()
     {
-        return view('students.addSInfor');
+        return view('students.addStudentInformation');
     }
 
-    public function saveSInfor(Request $request)
+    public function saveStudentInformation(Request $request)
     {
         // Lấy thông tin người dùng đăng nhập
         $userId = Auth::user()->id;
-
+        
         // Tạo mới infor học sinh
         $student = new Student();
         $student->user_id = $userId;
@@ -57,16 +57,22 @@ class ClassroomController extends Controller
         $student->save();
 
         // Chuyển hướng đến trang đăng ký lớp học
-        return redirect()->route('confirmRegister', $student);
+        // return redirect()->route('confirmRegister', $student);
+         return redirect()->route('confirmRegister', $student);
     }
     public function checkStudentClass($classId)
     {
+        $userId = Auth::user()->id;
+        // dd($userId);
         // Kiểm tra xem học sinh đã đăng ký lớp học hay chưa
         $isRegistered = DB::table('student_classes')
+          ->join('students','students.id','=','student_classes.student_id')
           ->where('student_classes.class_id', $classId)
-          ->select('student_id')
+          ->where('student_classes.student_id', $userId)
+          ->select('student_classes.student_id')
           ->first();
-
+        // dd($isRegistered); 
+          
         if ($isRegistered) {
             // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
             return redirect()->route('studentClass');
@@ -97,8 +103,8 @@ class ClassroomController extends Controller
         // dd($student);
 
         if (!$student) {
-            // Nếu không có thông tin học sinh, chuyển hướng đến trang addSInfor
-            return redirect()->route('addSInfor');
+            // Nếu không có thông tin học sinh, chuyển hướng đến trang addStudentInformation
+            return redirect()->route('addStudentInformation');
         }
 
         // Thêm dữ liệu học sinh vào lớp học

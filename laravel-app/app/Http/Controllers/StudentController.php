@@ -2,30 +2,36 @@
 
 namespace App\Http\Controllers;
 // use App\Http\Controllers\CustomAuthController;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 // use App\Models\User;
+// use Illuminate\Validation\Validator;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Student_class;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 class StudentController extends Controller
 {
      public function studentClass()
     {
         if (Auth::check()) {
-          $userId = Auth::user()->id;
-
-          $student_classes = DB::table('students')
-            ->join('student_classes','student_classes.student_id','=','students.id')
-            ->join('classrooms','classrooms.id','=','student_classes.class_id')
-            ->join('fees','fees.class_id','=','classrooms.id')
-            ->where('students.user_id','=', $userId)
-            ->select('classrooms.class_code','classrooms.name','student_classes.class_id', 'fees.paid_status as paid_status')
-            ->get();
-          //    dd($student_classes); 
+            $userId = Auth::user()->id;
+            // dd($userId);
+            $studentId = Student::where("user_id", $userId)->first()->id;
+            // dd($studentId);
+            $student_classes = DB::table('students')
+                ->join('student_classes','student_classes.student_id','=','students.id')
+                ->join('classrooms','classrooms.id','=','student_classes.class_id')
+                ->Join('fees','fees.class_id','=','classrooms.id')
+                ->where('fees.student_id', $studentId)
+                ->where('students.user_id','=', $userId)
+                ->where('student_classes.student_id','=', $studentId)
+                ->select('student_classes.student_id', 'classrooms.class_code','classrooms.name','student_classes.class_id', 'fees.paid_status as paid_status')
+                ->get();
+                // dd($student_classes); 
             
-          foreach ($student_classes as $student_class) {
+            foreach ($student_classes as $student_class) {
             if ($student_class->paid_status == 0) {
                 $student_class->paid_status_text = 'Chưa đóng';
             } elseif ($student_class->paid_status == 1) {
@@ -63,7 +69,27 @@ class StudentController extends Controller
          if (Auth::check()) {
           $userId = Auth::user()->id;
           $student = Student::where('user_id', $userId)->first();
+        //   dd($student);
          }
          return view('students.studentProfile',compact('student'));
      }
+     public function editStudentInformation($id){
+        //
+         $student = Student::findOrFail($id);
+         return view('students.editStudentInformation', compact('student'));
+    }
+     public function updateStudentInformation(Request $request, $id) {
+        //  $request->validate([
+        //     'phone' => 'required|numeric|max:10',
+        // ]);
+        
+        $student = Student::findOrFail($id);
+        
+        // gán dữ liệu gửi lên vào biến data
+        $data = $request->all();
+       
+        Student::find($id)->update($data);
+        
+        return redirect()->route('studentProfile', $student);
+    }
 }

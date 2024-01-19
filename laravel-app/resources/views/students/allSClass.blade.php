@@ -23,6 +23,10 @@
         </div>
     </div>
     @endforeach
-    <h3 class='text-xxl-end'><a href="{{ route('studentClass') }}" class="text-reset">LỚP HỌC CỦA TÔI >></a></h3>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
+        <a href="{{ route('studentClass') }}"><button class="btn btn-light">
+                <b>LỚP HỌC CỦA TÔI >></b>
+            </button></a>
+    </div>
 </div>
 @endsection

@@ -5,9 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card">
-                    <h3 class="card-header text-center">Fill your information</h3>
+                    <h3 class="card-header text-center">Điền thông tin của bạn</h3>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('saveSInfor') }}">
+                        <form method="POST" action="{{ route('saveStudentInformation') }}">
                             @csrf
                             <div class="form-group mb-3">
                                 <select name="level" id="level" class="form-control" required autofocus>
@@ -18,9 +18,6 @@
                                     <option value=5>Cấp độ 5</option>
                                 </select>
                             </div>
-                            <!-- <div class="form-group mb-3">
-                                <input type="hidden" name="student_code" id="student_code" value="{{ $studentCode }}">
-                            </div> -->
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="name" id="name" class="form-control" name="name"
                                     required>
@@ -42,11 +39,11 @@
                                     required>
                             </div>
                             <div class="d-grid mx-auto">
-                                <button type="submit" class="btn btn-dark btn-block">Submit</button>
+                                <button type="submit" class="btn btn-dark btn-block">Xác nhận</button>
                             </div>
                             <br>
-                            <div class="d-grid mx-auto"><a href="{{ route('forgot') }}"
-                                    style="text-decoration:none; color: black;">Update later</a></div>
+                            <div class="d-grid mx-auto"><a href="{{ route('allSClass') }}"
+                                    style="text-decoration:none; color: black;">Quay lại tất cả lớp học</a></div>
                         </form>
                     </div>
                 </div>
