@@ -20,12 +20,16 @@
             <p><b>Địa chỉ thường trú</b>: {{ $teacher->address }}</p>
             <p><b>Số điện thoại</b>: {{ $teacher->phone }}</b></p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="{{ route('updateStudentInformation', $student -> id) }}"><img
+                <a href="{{ route('updateTeacherInformation', $teacher -> id) }}"><img
                         src="{{asset('assets/download 3.png')}}" alt="Update"></a>
             </div>
         </div>
         @endif
     </div>
-    <h3 class='text-xxl-end'><a href="{{ route('studentClass') }}" class="text-reset">LỚP HỌC CỦA TÔI >></a></h3>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
+        <a href="{{ route('teacherClass') }}"><button class="btn btn-light">
+                <b>LỚP HỌC CỦA TÔI >></b>
+            </button></a>
+    </div>
 </div>
 @endsection

@@ -24,7 +24,7 @@ class CustomAuthController extends Controller
             if ($role == 0) {
                 return redirect('/admin');
             } elseif ($role == 1) {
-                return redirect('/teacherClass');
+                return redirect('/addTeacherInformation');
             } else {
                 return redirect('/studentClass');
             }

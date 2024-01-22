@@ -7,9 +7,11 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Student_class;
+use App\Models\Teacher_class;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeUnit\ClassMethodUnit;
 
 class ClassroomController extends Controller
 {    
@@ -34,17 +36,18 @@ class ClassroomController extends Controller
      //     dd($classroom);
          return view('classrooms.detailClass', compact('classroom'));
     }
-    
     public function addStudentInformation()
     {
         return view('students.addStudentInformation');
     }
-
     public function saveStudentInformation(Request $request)
     {
+        // Lấy giá trị $classId từ session
+        // dd($classroom);
+        
         // Lấy thông tin người dùng đăng nhập
         $userId = Auth::user()->id;
-        
+         
         // Tạo mới infor học sinh
         $student = new Student();
         $student->user_id = $userId;
@@ -58,24 +61,31 @@ class ClassroomController extends Controller
 
         // Chuyển hướng đến trang đăng ký lớp học
         // return redirect()->route('confirmRegister', $student);
-         return redirect()->route('confirmRegister', $student);
+         return redirect()->route('confirmRegister');
     }
     public function checkStudentClass($classId)
     {
         $userId = Auth::user()->id;
         // dd($userId);
-        // Kiểm tra xem học sinh đã đăng ký lớp học hay chưa
-        $isRegistered = DB::table('student_classes')
-          ->join('students','students.id','=','student_classes.student_id')
-          ->where('student_classes.class_id', $classId)
-          ->where('student_classes.student_id', $userId)
-          ->select('student_classes.student_id')
-          ->first();
-        // dd($isRegistered); 
-          
-        if ($isRegistered) {
+        
+        $student = Student::where('user_id', $userId)->first();
+        // dd($student);
+
+        if ($student){
+            $studentId = Student::where('user_id', $userId)->first()->id;
+             // Kiểm tra xem học sinh đã đăng ký lớp học hay chưa
+            $isRegistered = DB::table('student_classes')
+            ->where('student_classes.class_id', $classId)
+            ->where('student_id', $studentId)
+            ->select('student_classes.student_id')
+            ->first();
+            // dd($isRegistered); 
+            if ($isRegistered) {
             // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
-            return redirect()->route('studentClass');
+                return redirect()->route('studentClass');
+            }
+            // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
+            return redirect()->route('registerSClass', $classId);
         }
         // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
         return redirect()->route('registerSClass', $classId);
@@ -87,25 +97,31 @@ class ClassroomController extends Controller
             // Hiển thị popup xác nhận đăng ký
             return view('classrooms.registerStudent', ['classroom' => $classroom]);
         } 
-            // Chưa đăng ký lớp học, chuyển hướng đến trang đăng ký
+            // Đã đăng ký lớp học, chuyển hướng đến trang popup lớp đầy
         return view('classrooms.fullStudentClass', ['classroom' => $classroom]);
     }
     public function confirmRegister($classId)
     {
+        // Lưu giá trị $classId vào session
+        // session(['classId' => $classId]);
+
         // Lấy thông tin lớp học
         $classroom = Classroom::find($classId);
-
+        // dd($classroom);
+        
         // Lấy thông tin người dùng đăng nhập
         $userId = Auth::user()->id;
         
         // Thông tin học sinh trong bảng students
         $student = Student::where('user_id', $userId)->first();
         // dd($student);
+        // dd($student);
 
         if (!$student) {
             // Nếu không có thông tin học sinh, chuyển hướng đến trang addStudentInformation
             return redirect()->route('addStudentInformation');
         }
+        // dd($classroom);
 
         // Thêm dữ liệu học sinh vào lớp học
         $studentClass = new Student_Class();
@@ -129,5 +145,45 @@ class ClassroomController extends Controller
     {
         // Thực hiện logic hủy đăng ký lớp học
         return redirect()->route('allSClass'); // Quay lại trang hiện tại
-    } 
+    }
+    public function checkTeacherClass($classId)
+    {
+        $userId = Auth::user()->id;
+        
+        $teacherId = Teacher::where('user_id', $userId)->first()->id;
+        
+        // Kiểm tra xem có bất kỳ giáo viên nào đã gán với lớp học trong bảng teacher_classes chưa
+        $teacherClass = Teacher_class::where('class_id', $classId)
+                                ->first(); 
+                                                         
+        if ($teacherClass) {
+            // Nếu đã có giáo viên dạy lớp này, chuyển hướng đến trang popup thông báo đã có giáo viên
+            return redirect()->route('popupHadTeacher', ['classId' => $classId]);
+            
+        } else {
+            // Nếu chưa có giáo viên dạy lớp này, chuyển hướng đến trang popup xác nhận đăng ký lớp dạy
+            // return redirect()->route('registerTeacherClass', ['classId' => $classId]);
+            return view('classrooms.registerTeacher', ['classId' => $classId]);
+        }
+    }
+    public function confirmTeacherRegister($classId) {
+        // Lấy thông tin người dùng đăng nhập
+        $userId = Auth::user()->id;
+
+        // Thông tin học sinh trong bảng students
+        $teacher = Teacher::where('user_id', $userId)->first();
+        
+        // Thêm thông tin giáo viên vào lớp
+        $teacherClass = new Teacher_Class();
+        $teacherClass->teacher_id = $teacher->id;
+        $teacherClass->class_id = $classId;
+        $teacherClass->save();
+        
+        return redirect()->route('waitClass',  $teacherClass);
+    }
+    public function cancelTeacherRegister()
+    {
+        // Thực hiện logic hủy đăng ký lớp học
+        return redirect()->route('allTClass'); // Quay lại trang hiện tại
+    }
 }

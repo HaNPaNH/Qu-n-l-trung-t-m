@@ -18,9 +18,14 @@ class StudentController extends Controller
         if (Auth::check()) {
             $userId = Auth::user()->id;
             // dd($userId);
-            $studentId = Student::where("user_id", $userId)->first()->id;
-            // dd($studentId);
-            $student_classes = DB::table('students')
+
+            $student = Student::where("user_id", $userId)->first();
+            // dd($student);
+            
+            if ($student) {
+                $studentId = Student::where("user_id", $userId)->first()->id;
+                // dd($studentId);
+                $student_classes = DB::table('students')
                 ->join('student_classes','student_classes.student_id','=','students.id')
                 ->join('classrooms','classrooms.id','=','student_classes.class_id')
                 ->Join('fees','fees.class_id','=','classrooms.id')
@@ -29,16 +34,18 @@ class StudentController extends Controller
                 ->where('student_classes.student_id','=', $studentId)
                 ->select('student_classes.student_id', 'classrooms.class_code','classrooms.name','student_classes.class_id', 'fees.paid_status as paid_status')
                 ->get();
-                // dd($student_classes); 
-            
-            foreach ($student_classes as $student_class) {
-            if ($student_class->paid_status == 0) {
-                $student_class->paid_status_text = 'Chưa đóng';
-            } elseif ($student_class->paid_status == 1) {
-                $student_class->paid_status_text = 'Đã đóng';
+                // dd($student_classes);
+                
+                foreach ($student_classes as $student_class) {
+                    if ($student_class->paid_status == 0) {
+                        $student_class->paid_status_text = 'Chưa đóng';
+                    } elseif ($student_class->paid_status == 1) {
+                        $student_class->paid_status_text = 'Đã đóng';
+                    }
+                }
+                return view('students.studentClass', compact('student_classes')); 
             }
-         }
-            return view('students.studentClass', compact('student_classes'));
+            return view('students.studentNoClass');
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }

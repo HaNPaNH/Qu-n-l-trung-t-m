@@ -6,17 +6,23 @@
     <div class="row bg-warning my-3">
         <div class="col-md-12">
             <div class="course py-3">
-                <h4>Mã lớp: {{ $classroom->id }}</h4>
+                <h4>Mã lớp: {{ $classroom->class_code }}</h4>
                 <p>Tên lớp: {{ $classroom->name }}</p>
                 <p>Ngày khai giảng: {{ $classroom->start_day }}</p>
-                <div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a href="/detailClass/{{ $classroom->id }}"><button class="btn btn-light ">Xem chi tiết</button></a>
-                    <button class="btn btn-light disabled">Đăng ký</button>
+                    <a href="{{ route('checkTeacherClass', $classroom->id) }}">
+                        <button type="button" class="btn btn-light">Đăng ký</button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     @endforeach
-    <h3 class='text-xxl-end'><a href="{{ route('teacherClass') }}" class="text-reset">LỚP DẠY CỦA TÔI >></a></h3>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
+        <a href="{{ route('checkTeacherClass', $classroom->id) }}"><button class="btn btn-light">
+                <b>LỚP DẠY CỦA TÔI >></b>
+            </button></a>
+    </div>
 </div>
 @endsection
