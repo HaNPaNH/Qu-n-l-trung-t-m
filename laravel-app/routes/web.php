@@ -26,21 +26,16 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 Route::get('listSClass/{id}', [ClassroomController::class, 'listSClass'])->name('listSClass');
 Route::get('detailClass/{id}', [ClassroomController::class, 'detailClass'])->name('detailClass');
 
-// Route::get('registerSClass/{id}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
-// Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmRegister'])->name('confirmRegister');
-// Route::get('cancel-register', [ClassroomController::class, 'cancelRegister'])->name('cancelRegister');
+Route::get('registerSClass/{classId}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
+Route::get('confirm-register-student/{classId}', [ClassroomController::class, 'confirmStudentRegister'])->name('confirmStudentRegister');
 
-// Route::get('addStudentInformation',[ClassroomController::class, 'addStudentInformation'])->name('addStudentInformation');
-// Route::post('saveStudentInformation', [ClassroomController::class, 'saveStudentInformation'])->name('saveStudentInformation');
+// Route::group(['middleware' => ['web']], function () {
+//     Route::get('registerSClass/{classId}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
+//     Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmStudentRegister'])->name('confirmStudentRegister');
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('registerSClass/{id}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
-    Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmRegister'])->name('confirmRegister');
-    Route::get('cancel-register', [ClassroomController::class, 'cancelRegister'])->name('cancelRegister');
-
-    Route::get('addStudentInformation', [ClassroomController::class, 'addStudentInformation'])->name('addStudentInformation');
-    Route::post('saveStudentInformation', [ClassroomController::class, 'saveStudentInformation'])->name('saveStudentInformation');
-});
+//     Route::get('addStudentInformation', [ClassroomController::class, 'addStudentInformation'])->name('addStudentInformation');
+//     Route::post('saveStudentInformation', [ClassroomController::class, 'saveStudentInformation'])->name('saveStudentInformation');
+// });
 Route::get('checkStudentClass/{classId}', [ClassroomController::class, 'checkStudentClass'])->name('checkStudentClass');
 
 //Class - teacher
@@ -59,11 +54,13 @@ Route::get('waitClass', [TeacherController::class, 'waitClass'])->name('waitClas
 
 Route::get('checkTeacherClass/{classId}', [ClassroomController::class, 'checkTeacherClass'])->name('checkTeacherClass');
 Route::get('registerTeacherClass/{classId}', [ClassroomController::class, 'registerTeacherClass'])->name('registerTeacherClass');
-Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmTeacherRegister'])->name('confirmTeacherRegister');
-Route::get('cancel-register', [ClassroomController::class, 'cancelTeacherRegister'])->name('cancelTeacherRegister');
+Route::get('confirm-register-teacher/{classId}', [ClassroomController::class, 'confirmTeacherRegister'])->name('confirmTeacherRegister');
 
 //Class - student
 Route::get('studentProfile', [StudentController::class, 'studentProfile'])->name('studentProfile');
+
+Route::get('addStudentInformation',[StudentController::class, 'addStudentInformation'])->name('addStudentInformation');
+Route::post('saveStudentInformation', [StudentController::class, 'saveStudentInformation'])->name('saveStudentInformation');
 
 Route::get('updateStudentInformation/{id}', [StudentController::class, 'editStudentInformation'])->name('editStudentInformation');
 Route::post('updateStudentInformation/{id}', [StudentController::class, 'updateStudentInformation'])->name('updateStudentInformation');
@@ -73,8 +70,22 @@ Route::get('studentClass', [StudentController::class, 'studentClass'])->name('st
 Route::get('billSClass/{studentClassId}', [StudentController::class, 'billSClass'])->name('billSClass');
 
 //Admin
-Route::get('admin', [AdminController::class, 'admin'])->name('admin');
-Route::get('mStudent', [AdminController::class, 'mStudent'])->name('mStudent');
-Route::get('mSStudent', [AdminController::class, 'mSStudent'])->name('mSStudent');
+Route::get('admin', [AdminController::class, 'index'])->name('index');
+Route::get('adminProfile', [AdminController::class, 'adminProfile'])->name('adminProfile');
+
+Route::get('listStudent', [AdminController::class, 'listStudent'])->name('listStudent');
+Route::get('listTeacher', [AdminController::class, 'listTeacher'])->name('listTeacher');
+Route::get('listClass', [AdminController::class, 'listClass'])->name('listClass');
+
+Route::get('detailStudent/{id}', [AdminController::class, 'detailStudent'])->name('detailStudent');
+Route::get('detailTeacher/{id}', [AdminController::class, 'detailTeacher'])->name('detailTeacher');
+Route::get('detailClass/{id}', [AdminController::class, 'detailClass'])->name('detailClass');
+
+Route::get('waitTeacherClass/{id}', [AdminController::class, 'waitTeacherClass'])->name('waitTeacherClass');
+Route::get('acceptTeacherRegister/{id}', [AdminController::class, 'acceptTeacherRegister'])->name('acceptTeacherRegister');
+Route::get('refuseTeacherRegister/{id}', [AdminController::class, 'refuseTeacherRegister'])->name('refuseTeacherRegister');
+
+Route::get('billStudentClass/{id}', [AdminController::class, 'billStudentClass'])->name('billStudentClass');
+Route::get('confirmPayment/{id}', [AdminController::class, 'confirmPayment'])->name('confirmPayment');
 
 // Route::prefix('')->group(function () {});

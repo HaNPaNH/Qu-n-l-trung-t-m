@@ -16,11 +16,7 @@ use SebastianBergmann\CodeUnit\ClassMethodUnit;
 class ClassroomController extends Controller
 {    
     public function listSClass($id)
-    {
-        // $listSClass = Classroom::join('student_classes', 'student_classes.class_id', '=', 'classrooms.id')
-        //     ->join('students', 'students.student_id', '=', 'student_classes.student_id')
-        //     ->select(, 'students.name', 'student_classes.id')
-        //     ->get();
+    {    
         $listClassStudents = DB::table('student_classes')
           ->join('classrooms', 'student_classes.class_id', '=', 'classrooms.id')
           ->join('students', 'student_classes.student_id', '=', 'students.id')
@@ -28,6 +24,7 @@ class ClassroomController extends Controller
           ->select('student_classes.student_id as student_id', 'students.name as student_name')
           ->get();
         // dd($listSClass);
+        
         return view('classrooms.listSClass', compact('listClassStudents'));
     }
     public function detailClass($id)
@@ -35,33 +32,6 @@ class ClassroomController extends Controller
          $classroom = Classroom::findOrFail($id);
      //     dd($classroom);
          return view('classrooms.detailClass', compact('classroom'));
-    }
-    public function addStudentInformation()
-    {
-        return view('students.addStudentInformation');
-    }
-    public function saveStudentInformation(Request $request)
-    {
-        // Lấy giá trị $classId từ session
-        // dd($classroom);
-        
-        // Lấy thông tin người dùng đăng nhập
-        $userId = Auth::user()->id;
-         
-        // Tạo mới infor học sinh
-        $student = new Student();
-        $student->user_id = $userId;
-        $student->level_id = $request->input('level');
-        $student->name = $request->input('name');
-        $student->birthday = $request->input('birthday');
-        $student->home = $request->input('home');
-        $student->address = $request->input('address');
-        $student->phone = $request->input('phone');
-        $student->save();
-
-        // Chuyển hướng đến trang đăng ký lớp học
-        // return redirect()->route('confirmRegister', $student);
-         return redirect()->route('confirmRegister');
     }
     public function checkStudentClass($classId)
     {
@@ -82,7 +52,8 @@ class ClassroomController extends Controller
             // dd($isRegistered); 
             if ($isRegistered) {
             // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
-                return redirect()->route('studentClass');
+                // return redirect()->route('studentClass');
+                return view('classrooms.popupRegistered', ['classId' => $classId]);
             }
             // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
             return redirect()->route('registerSClass', $classId);
@@ -90,17 +61,17 @@ class ClassroomController extends Controller
         // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
         return redirect()->route('registerSClass', $classId);
     }
-    public function registerSClass($id)
+    public function registerSClass($classId)
     {
-        $classroom = Classroom::find($id);
+        $classroom = Classroom::find($classId);
         if ($classroom->actual_number < $classroom->prediction_number) {
             // Hiển thị popup xác nhận đăng ký
-            return view('classrooms.registerStudent', ['classroom' => $classroom]);
+            return view('classrooms.registerStudent', ['classId' => $classId]);
         } 
-            // Đã đăng ký lớp học, chuyển hướng đến trang popup lớp đầy
-        return view('classrooms.fullStudentClass', ['classroom' => $classroom]);
+            // Chuyển hướng đến trang popup lớp đầy
+        return view('classrooms.fullStudentClass', ['classId' => $classId]);
     }
-    public function confirmRegister($classId)
+    public function confirmStudentRegister($classId)
     {
         // Lưu giá trị $classId vào session
         // session(['classId' => $classId]);
@@ -117,10 +88,10 @@ class ClassroomController extends Controller
         // dd($student);
         // dd($student);
 
-        if (!$student) {
-            // Nếu không có thông tin học sinh, chuyển hướng đến trang addStudentInformation
-            return redirect()->route('addStudentInformation');
-        }
+        // if (!$student) {
+        //     // Nếu không có thông tin học sinh, chuyển hướng đến trang addStudentInformation
+        //     return redirect()->route('addStudentInformation');
+        // }
         // dd($classroom);
 
         // Thêm dữ liệu học sinh vào lớp học
@@ -141,11 +112,6 @@ class ClassroomController extends Controller
       
         return redirect()->route('billSClass',  $studentClass); // Chuyển hướng đến trang hóa đơn
     }
-    public function cancelRegister()
-    {
-        // Thực hiện logic hủy đăng ký lớp học
-        return redirect()->route('allSClass'); // Quay lại trang hiện tại
-    }
     public function checkTeacherClass($classId)
     {
         $userId = Auth::user()->id;
@@ -153,15 +119,28 @@ class ClassroomController extends Controller
         $teacherId = Teacher::where('user_id', $userId)->first()->id;
         
         // Kiểm tra xem có bất kỳ giáo viên nào đã gán với lớp học trong bảng teacher_classes chưa
-        $teacherClass = Teacher_class::where('class_id', $classId)
-                                ->first(); 
-                                                         
-        if ($teacherClass) {
-            // Nếu đã có giáo viên dạy lớp này, chuyển hướng đến trang popup thông báo đã có giáo viên
-            return redirect()->route('popupHadTeacher', ['classId' => $classId]);
+        $teacherClasses = Teacher_class::where('class_id', $classId)
+                                ->get();
+        // dd($teacherClass);
+                                            
+        if ($teacherClasses) {
+            // Nếu giáo viên đã đăng ký lớp này, chuyển hướng đến trang popup thông báo đã đăng ký
+            foreach ($teacherClasses as $teacherClass) {
+                if ($teacherClass->teacher_id == $teacherId) {
+                    return view('classrooms.popupRegistered', ['classId' => $classId]);
+                }
+            }  
+            // Nếu giáo viên khác đăng ký lớp này và được duyệt ok, chuyển hướng đến trang popup thông báo đã có giáo viên đăng ký
+            foreach ($teacherClasses as $teacherClass) {
+                if ($teacherClass->teacher_id !== $teacherId && $teacherClass->teacherClass_status == '0') {
+                    return view('classrooms.popupHadTeacher', ['classId' => $classId]);
+                }
+            }
+            // Nếu đã có giáo viên dki dạy lớp này nhưng duyệt thất bại hoặc chưa được duyệt, chuyển hướng đến trang đăng ký
+            return view('classrooms.registerTeacher', ['classId' => $classId]);
             
         } else {
-            // Nếu chưa có giáo viên dạy lớp này, chuyển hướng đến trang popup xác nhận đăng ký lớp dạy
+            // Nếu chưa có giáo viên đăng ký lớp này, chuyển hướng đến trang popup xác nhận đăng ký lớp dạy
             // return redirect()->route('registerTeacherClass', ['classId' => $classId]);
             return view('classrooms.registerTeacher', ['classId' => $classId]);
         }
@@ -180,10 +159,5 @@ class ClassroomController extends Controller
         $teacherClass->save();
         
         return redirect()->route('waitClass',  $teacherClass);
-    }
-    public function cancelTeacherRegister()
-    {
-        // Thực hiện logic hủy đăng ký lớp học
-        return redirect()->route('allTClass'); // Quay lại trang hiện tại
     }
 }

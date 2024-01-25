@@ -16,6 +16,13 @@ class TeacherController extends Controller
     public function addTeacherInformation()
     {
         if (Auth::check()) {
+            $userId = Auth::user()->id;
+            
+            $teacher = Teacher::where("user_id", $userId)->first();
+            
+            if ($teacher) {
+                return redirect()->route('teacherClass');
+            }
             return view('teachers.addTeacherInformation');
          }
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -57,16 +64,22 @@ class TeacherController extends Controller
     }
     public function teacherClass()
     {
+        $userId = Auth::user()->id;
+            
+        $teacherId = Teacher::where("user_id", $userId)->first()->id;
+        
         $teacher_classes = DB::table('teacher_classes')
         ->join('classrooms','classrooms.id','=','teacher_classes.class_id')
-        ->where('teacherClass_status',0)
+        ->where('teacher_classes.teacherClass_status', '0')
+        ->where('teacher_classes.teacher_id', $teacherId)
         ->get();
-        
+        // dd($teacher_classes);
+
         return view('teachers.teacherClass', compact('teacher_classes'));
     }
     public function allTClass()
     {           
-         $classrooms = Classroom::all();
+        $classrooms = Classroom::all();
         //   dd($classrooms);
          return view('teachers.allTClass', compact('classrooms'));
     }
@@ -79,16 +92,17 @@ class TeacherController extends Controller
         $waitClasses = DB::table('teachers')
         ->join('teacher_classes','teacher_classes.teacher_id','=','teachers.id')
         ->join('classrooms','classrooms.id','=','teacher_classes.class_id')
-        // ->where('teacher_classes.teacherClass_status','=', 1)
+        ->whereIn('teacher_classes.teacherClass_status', ['1', '2'])
         ->where('teachers.user_id','=', $userId)
         ->where('teacher_classes.teacher_id','=', $teacherId)
-        ->select('classrooms.class_code','classrooms.name', 'teacher_classes.teacherClass_status')
+        ->select('classrooms.class_code','classrooms.name', 'teacher_classes.teacherClass_status', 'classrooms.start_day' )
         ->get();
         // dd($waitClasses);
         foreach ($waitClasses as $waitClass) {
                 if ($waitClass->teacherClass_status == 1) {
                     $waitClass->teacherClass_status_text = 'Chờ duyệt';
-                } elseif ($waitClass->paid_status == 2) {
+                    // dd($waitClass->teacherClass_status_text);
+                } elseif ($waitClass->teacherClass_status == 2) {
                     $waitClass->teacherClass_status_text = 'Đăng ký thất bại';
                 }
             }

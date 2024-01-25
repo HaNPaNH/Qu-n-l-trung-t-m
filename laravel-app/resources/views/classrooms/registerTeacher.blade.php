@@ -8,7 +8,7 @@
             <a href="{{ route('confirmTeacherRegister', ['classId' => $classId] )}}"><button
                     class=" btn btn-success">Xác
                     nhận</button></a>
-            <a href="{{ route('cancelTeacherRegister') }}"><button class="btn btn-danger">Hủy bỏ</button></a>
+            <a href="{{ route('allTClass') }}"><button class="btn btn-danger">Hủy bỏ</button></a>
         </div>
     </div>
 </div>

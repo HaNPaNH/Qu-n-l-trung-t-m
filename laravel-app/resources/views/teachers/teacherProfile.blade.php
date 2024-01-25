@@ -27,8 +27,14 @@
         @endif
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
+        <a href="{{ route('allTClass') }}"><button class="btn btn-light">
+                <b>TẤT CẢ LỚP HỌC</b>
+            </button></a>
+        <a href="{{ route('waitClass') }}"><button class="btn btn-light">
+                <b>LỚP HỌC ĐANG CHỜ</b>
+            </button></a>
         <a href="{{ route('teacherClass') }}"><button class="btn btn-light">
-                <b>LỚP HỌC CỦA TÔI >></b>
+                <b>LỚP DẠY CỦA TÔI</b>
             </button></a>
     </div>
 </div>

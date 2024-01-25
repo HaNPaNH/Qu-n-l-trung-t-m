@@ -26,7 +26,7 @@ class CustomAuthController extends Controller
             } elseif ($role == 1) {
                 return redirect('/addTeacherInformation');
             } else {
-                return redirect('/studentClass');
+                return redirect('/addStudentInformation');
             }
         }
         return redirect("login")->withSuccess('Login details are not valid');
@@ -49,10 +49,10 @@ class CustomAuthController extends Controller
         $role = $data['role'];
         if ($role == 1) {
             // Redirect to teacher page
-            return redirect('/teacherClass');
+            return redirect('/addTeacherInformation');
         } else {
             // Redirect to student page
-            return redirect('/studentClass');
+            return redirect('/addStudentInformation');
         }
     }
     public function signOut()

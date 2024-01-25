@@ -5,9 +5,9 @@
         <h4>Xác nhận đăng ký lớp học</h4>
         <p>Bạn có chắc chắn muốn đăng ký lớp học này?</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="{{ route('confirmRegister', $classroom->id )}}"><button class=" btn btn-success">Xác
+            <a href="{{ route('confirmStudentRegister', ['classId' => $classId] )}}"><button class=" btn btn-success">Xác
                     nhận</button></a>
-            <a href="{{ route('cancelRegister') }}"><button class="btn btn-danger">Hủy bỏ</button></a>
+            <a href="{{ route('allSClass') }}"><button class="btn btn-danger">Hủy bỏ</button></a>
         </div>
     </div>
 </div>

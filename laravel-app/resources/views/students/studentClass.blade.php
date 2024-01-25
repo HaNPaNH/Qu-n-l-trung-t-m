@@ -33,7 +33,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
         <a href="{{ route('allSClass') }}"><button class="btn btn-light">
                 <b>TẤT
-                    CẢ LỚP HỌC >></b>
+                    CẢ LỚP HỌC</b>
             </button></a>
     </div>
 </div>

@@ -11,8 +11,8 @@
                 <p>Ngày khai giảng: {{ $classroom->start_day }}</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a href="/detailClass/{{ $classroom->id }}"><button class="btn btn-light ">Xem chi tiết</button></a>
-                    <a href="{{ route('checkTeacherClass', $classroom->id) }}">
-                        <button type="button" class="btn btn-light">Đăng ký</button>
+                    <a href=" {{ route('checkTeacherClass', $classroom->id) }}">
+                        <button type=" button" class="btn btn-light">Đăng ký</button>
                     </a>
                 </div>
             </div>
@@ -20,8 +20,11 @@
     </div>
     @endforeach
     <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
-        <a href="{{ route('checkTeacherClass', $classroom->id) }}"><button class="btn btn-light">
-                <b>LỚP DẠY CỦA TÔI >></b>
+        <a href="{{ route('teacherClass') }}"><button class=" btn btn-light">
+                <b>LỚP DẠY CỦA TÔI</b>
+            </button></a>
+        <a href="{{ route('waitClass') }}"><button class=" btn btn-light">
+                <b>LỚP HỌC ĐANG CHỜ</b>
             </button></a>
     </div>
 </div>

@@ -11,5 +11,6 @@ class Teacher_class extends Model
     protected $fillable = [
         'teacher_id',
         'class_id',
+        'teacherClass_status',
     ];
 }

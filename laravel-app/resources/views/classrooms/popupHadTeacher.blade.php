@@ -5,7 +5,7 @@
         <h4>Lớp đã có giáo viên dạy</h4>
         <p>Xin lỗi, lớp học này đã có giáo viên trước đó. Vui lòng chọn đăng ký dạy lớp khác.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="{{ route('cancelTeacherRegister') }}"><button class="btn btn-primary">Quay lại</button></a>
+            <a href="{{ route('allTClass') }}"><button class="btn btn-primary">Quay lại</button></a>
         </div>
     </div>
 </div>
