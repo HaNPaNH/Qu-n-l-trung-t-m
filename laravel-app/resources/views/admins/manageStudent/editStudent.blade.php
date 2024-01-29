@@ -1,13 +1,13 @@
-@extends('auth.layouts')
+@extends('admins.index')
 @section('content')
 <main class="login-form">
-    <div class="container">
+    <div class="container p-5">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card">
-                    <h3 class="card-header text-center">Điền thông tin của bạn</h3>
+                    <h3 class="card-header text-center">Sửa thông tin học sinh</h3>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('updateStudentInformation', $student->id ) }}">
+                        <form method="POST" action="{{ route('updateStudent', $student->id ) }}">
                             @csrf
                             <div class="form-group mb-3">
                                 <select name="level" id="level" class="form-control" value="{{ $student->level_id }}"
@@ -45,7 +45,7 @@
                             <div class="d-grid mx-auto">
                                 <button type="submit" class="btn btn-dark btn-block">Xác nhận</button>
                             </div>
-                            <br>
+
                         </form>
                     </div>
                 </div>

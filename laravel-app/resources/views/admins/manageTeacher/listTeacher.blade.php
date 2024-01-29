@@ -1,6 +1,6 @@
 @extends('admins.index')
 @section('content')
-<div class="container pt-5">
+<div class="container py-5">
     <h2 class="text-center">DANH SÁCH GIÁO VIÊN</h2>
     <table class="table table-borderless text-center">
         <thead class="table-warning">
@@ -27,8 +27,10 @@
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ route('detailTeacher', $listTeacher->id) }}"><img src="{{asset('assets/show.png')}}"
                                 alt="Update" width=18px height=18px></a>
-                        <a href=""><img src="{{asset('assets/download 3.png')}}" alt="Update"></a>
-                        <a href=""><img src="{{asset('assets/download 5.png')}}" alt="Delete"></a>
+                        <a href="{{ route('updateTeacher', $listTeacher->id) }}"><img
+                                src="{{asset('assets/download 3.png')}}" alt="Update"></a>
+                        <a href="{{ route('deleteTeacher', $listTeacher->id) }}"><img
+                                src="{{asset('assets/download 5.png')}}" alt="Delete"></a>
                     </div>
                 </td>
             </tr>

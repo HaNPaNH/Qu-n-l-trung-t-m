@@ -1,4 +1,4 @@
-@extends('auth.layouts')
+@extends('admins.index')
 @section('content')
 <main class="login-form">
     <div class="container">
@@ -7,11 +7,10 @@
                 <div class="card">
                     <h3 class="card-header text-center">Điền thông tin của bạn</h3>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('updateStudentInformation', $student->id ) }}">
+                        <form method="POST" action="{{ route('saveStudentInformation') }}">
                             @csrf
                             <div class="form-group mb-3">
-                                <select name="level" id="level" class="form-control" value="{{ $student->level_id }}"
-                                    required autofocus>
+                                <select name="level" id="level" class="form-control" required autofocus>
                                     <option value=1>Cấp độ 1</option>
                                     <option value=2>Cấp độ 2</option>
                                     <option value=3>Cấp độ 3</option>
@@ -21,31 +20,30 @@
                             </div>
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="name" id="name" class="form-control" name="name"
-                                    value="{{ $student->name }}" required>
+                                    required>
                             </div>
                             <div class="form-group mb-3">
                                 <input type="date" placeholder="birthday" id="birthday" class="form-control"
-                                    name="birthday" value="{{ $student->birthday }}" required>
+                                    name="birthday" required>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="text" placeholder="home" id="home" value="{{ $student->home }}"
-                                    class="form-control" name="home" required>
+                                <input type="text" placeholder="home" id="home" class="form-control" name="home"
+                                    required>
                             </div>
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="address" id="address" class="form-control"
-                                    name="address" value="{{ $student->address }}" required>
+                                    name="address" required>
                             </div>
                             <div class="form-group mb-3">
                                 <input type="number" placeholder="phone" id="phone" class="form-control" name="phone"
-                                    value="{{ $student->phone }}" required>
-                                @if ($errors->has('phone'))
-                                <span class=" text-danger">{{ $errors->first('phone') }}</span>
-                                @endif
+                                    required>
                             </div>
                             <div class="d-grid mx-auto">
                                 <button type="submit" class="btn btn-dark btn-block">Xác nhận</button>
                             </div>
                             <br>
+                            <div class="d-grid mx-auto"><a href="{{ route('allSClass') }}"
+                                    style="text-decoration:none; color: black;">Quay lại tất cả lớp học</a></div>
                         </form>
                     </div>
                 </div>

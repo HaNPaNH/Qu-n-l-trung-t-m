@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <!-- Google Font: Source Sans Pro -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -31,12 +32,11 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
+        <!-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{asset('assets/eClassLogo2.png')}}" alt="eClassLogo" height="60"
                 width="60">
-        </div>
+        </div> -->
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -77,7 +77,8 @@
                         data-accordion="false">
                         <li class="nav-item">
                             <a href="{{ route('listStudent') }}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <img src="{{asset('assets/icon-student.jpg')}}" alt="" width=20px height=20px>
+                                <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
                                 <p>
                                     Quản lý học viên
                                 </p>
@@ -85,7 +86,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('listTeacher') }}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
+                                <img src="{{asset('assets/icon-teacher.jpg')}}" alt="" width=20px height=20px>
                                 <p>
                                     Quản lý giáo viên
                                 </p>
@@ -93,7 +95,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('listClass') }}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
+                                <img src="{{asset('assets/icon-class.jpg')}}" alt="" width=20px height=20px>
                                 <p>
                                     Quản lý lớp học
                                 </p>
@@ -135,8 +138,8 @@
     $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src="{{asset('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- ChartJS -->
+    <!-- <script src="{{asset('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    ChartJS -->
     <script src="{{asset('admin-lte/plugins/chart.js/Chart.min.js')}}"></script>
     <!-- Sparkline -->
     <script src="{{asset('admin-lte/plugins/sparklines/sparkline.js')}}"></script>
@@ -160,6 +163,9 @@
     <script src="{{asset('admin-lte/dist/js/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('admin-lte/dist/js/pages/dashboard.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

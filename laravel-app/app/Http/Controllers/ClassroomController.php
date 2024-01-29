@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\Fee;
+use App\Models\Attendance;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -23,7 +24,15 @@ class ClassroomController extends Controller
           ->where('student_classes.class_id', $id)
           ->select('student_classes.student_id as student_id', 'students.name as student_name')
           ->get();
-        // dd($listSClass);
+        // dd($listClassStudents);
+        // $classAttendances = DB::table('students')
+        // ->join('attendances','attendances.student_id','=','students.id')
+        // ->join('classrooms','classrooms.id','=','attendances.class_id')
+        // ->where('attendances.class_id', $id)
+        // ->select('attendances.student_id as student_id', 'students.name as student_name', 'attendances.attendance_day', 'attendances.has_attendance', 'attendances.id as id')
+        // ->get();
+        
+        // dd($classAttendances);
         
         return view('classrooms.listSClass', compact('listClassStudents'));
     }
@@ -109,6 +118,13 @@ class ClassroomController extends Controller
         $fee->student_id = $student->id;
         $fee->class_id = $classId;
         $fee->save();
+        
+        // Thêm dữ liệu vào bảng attendances
+        $attendance = new Attendance();
+        $attendance->student_id = $student->id;
+        $attendance->class_id = $classId;
+        $attendance->attendance_day = date('Y-m-d');
+        $attendance->save();
       
         return redirect()->route('billSClass',  $studentClass); // Chuyển hướng đến trang hóa đơn
     }

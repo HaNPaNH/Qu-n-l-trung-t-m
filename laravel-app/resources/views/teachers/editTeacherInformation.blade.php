@@ -29,8 +29,6 @@
                                 <button type="submit" class="btn btn-dark btn-block">Xác nhận</button>
                             </div>
                             <br>
-                            <div class="d-grid mx-auto"><a href="{{ route('allTClass') }}"
-                                    style="text-decoration:none; color: black;">Quay lại tất cả lớp học</a></div>
                         </form>
                     </div>
                 </div>

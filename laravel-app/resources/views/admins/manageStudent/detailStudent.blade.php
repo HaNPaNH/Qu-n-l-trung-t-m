@@ -9,8 +9,10 @@ td:first-child {
 </style>
 <div class="container pt-5">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href=""><img src="{{asset('assets/download 3.png')}}" alt="Update"></a>
-        <a href=""><img src="{{asset('assets/download 5.png')}}" alt="Delete"></a>
+        <a href="{{ route('updateStudent', $detailStudent->id) }}"><img src="{{asset('assets/download 3.png')}}"
+                alt="Update"></a>
+        <a href="{{ route('deleteStudent', $detailStudent->id) }}"><img src="{{asset('assets/download 5.png')}}"
+                alt="Delete"></a>
     </div>
     <h2 class="text-center">THÔNG TIN CHI TIẾT</h2>
     <table class="table text-center">

@@ -29,13 +29,6 @@ Route::get('detailClass/{id}', [ClassroomController::class, 'detailClass'])->nam
 Route::get('registerSClass/{classId}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
 Route::get('confirm-register-student/{classId}', [ClassroomController::class, 'confirmStudentRegister'])->name('confirmStudentRegister');
 
-// Route::group(['middleware' => ['web']], function () {
-//     Route::get('registerSClass/{classId}', [ClassroomController::class, 'registerSClass'])->name('registerSClass');
-//     Route::get('confirm-register/{classId}', [ClassroomController::class, 'confirmStudentRegister'])->name('confirmStudentRegister');
-
-//     Route::get('addStudentInformation', [ClassroomController::class, 'addStudentInformation'])->name('addStudentInformation');
-//     Route::post('saveStudentInformation', [ClassroomController::class, 'saveStudentInformation'])->name('saveStudentInformation');
-// });
 Route::get('checkStudentClass/{classId}', [ClassroomController::class, 'checkStudentClass'])->name('checkStudentClass');
 
 //Class - teacher
@@ -72,6 +65,8 @@ Route::get('billSClass/{studentClassId}', [StudentController::class, 'billSClass
 //Admin
 Route::get('admin', [AdminController::class, 'index'])->name('index');
 Route::get('adminProfile', [AdminController::class, 'adminProfile'])->name('adminProfile');
+Route::get('updateAdminProfile/{id}', [AdminController::class, 'editAdminProfile'])->name('editAdminProfile');
+Route::post('updateAdminProfile/{id}', [AdminController::class, 'updateAdminProfile'])->name('updateAdminProfile');
 
 Route::get('listStudent', [AdminController::class, 'listStudent'])->name('listStudent');
 Route::get('listTeacher', [AdminController::class, 'listTeacher'])->name('listTeacher');
@@ -79,13 +74,30 @@ Route::get('listClass', [AdminController::class, 'listClass'])->name('listClass'
 
 Route::get('detailStudent/{id}', [AdminController::class, 'detailStudent'])->name('detailStudent');
 Route::get('detailTeacher/{id}', [AdminController::class, 'detailTeacher'])->name('detailTeacher');
-Route::get('detailClass/{id}', [AdminController::class, 'detailClass'])->name('detailClass');
+Route::get('detailAdminClass/{id}', [AdminController::class, 'detailAdminClass'])->name('detailAdminClass');
 
 Route::get('waitTeacherClass/{id}', [AdminController::class, 'waitTeacherClass'])->name('waitTeacherClass');
-Route::get('acceptTeacherRegister/{id}', [AdminController::class, 'acceptTeacherRegister'])->name('acceptTeacherRegister');
+Route::get('acceptTeacherRegister/{id}/{class_id}', [AdminController::class, 'acceptTeacherRegister'])->name('acceptTeacherRegister');
 Route::get('refuseTeacherRegister/{id}', [AdminController::class, 'refuseTeacherRegister'])->name('refuseTeacherRegister');
 
 Route::get('billStudentClass/{id}', [AdminController::class, 'billStudentClass'])->name('billStudentClass');
 Route::get('confirmPayment/{id}', [AdminController::class, 'confirmPayment'])->name('confirmPayment');
 
+Route::get('attendanceInformation/{id}', [AdminController::class, 'attendanceInformation'])->name('attendanceInformation');
+Route::get('attendanceStudent/{id}', [AdminController::class, 'attendanceStudent'])->name('attendanceStudent');
+
+Route::get('deleteStudent/{id}', [AdminController::class, 'deleteStudent'])->name('deleteStudent');
+Route::get('deleteTeacher/{id}', [AdminController::class, 'deleteTeacher'])->name('deleteTeacher');
+Route::get('deleteClass/{id}', [AdminController::class, 'deleteClass'])->name('deleteClass');
+
+Route::get('addClass', [AdminController::class, 'addClass'])->name('addClass');
+Route::post('saveClass', [AdminController::class, 'saveClass'])->name('saveClass');
+Route::get('updateClass/{id}', [AdminController::class, 'editClass'])->name('editClass');
+Route::post('updateClass/{id}', [AdminController::class, 'updateClass'])->name('updateClass');
+
+Route::get('updateStudent/{id}', [AdminController::class, 'editStudent'])->name('editStudent');
+Route::post('updateStudent/{id}', [AdminController::class, 'updateStudent'])->name('updateStudent');
+
+Route::get('updateTeacher/{id}', [AdminController::class, 'editTeacher'])->name('editTeacher');
+Route::post('updateTeacher/{id}', [AdminController::class, 'updateTeacher'])->name('updateTeacher');
 // Route::prefix('')->group(function () {});

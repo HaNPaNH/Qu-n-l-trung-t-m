@@ -1,25 +1,33 @@
-@extends('auth.layouts')
+@extends('admins.index')
 @section('content')
-<div class="container" style="width:50%;">
-    <div class="row bg-warning rounded py-3">
-        <h3 class="text-center">Profile</h3>
-    </div>
-    <div class="row border border-warning py-3">
-        @if($admin === null)
-        <div>
-            <p><b>Tên: </b>:</p>
-            <p><b>Số điện thoại</b>:</b></p>
-        </div>
-        @else
-        <div>
-            <p><b>Tên</b>: {{ $admin->name}}</p>
-            <p><b>Số điện thoại</b>: {{ $admin->phone }}</b></p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="{{ route('updateStudentInformation', $student -> id) }}"><img
-                        src="{{asset('assets/download 3.png')}}" alt="Update"></a>
+<div class="p-5">
+    <div class="container rounded bg-white" style="width:20%;">
+        <div class="row">
+            <div class="p-3">
+                <div class="d-flex flex-column align-items-center text-center"><img class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                        class="font-weight-bold">
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <p><b>Tên: </b>{{ $admin->name}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p><b>Số điện thoại: </b>{{ $admin->phone}}</p>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ route('updateAdminProfile', $admin -> id) }}"><img
+                                src="{{asset('assets/download 3.png')}}" alt="Update"></a>
+                    </div>
+                </div>
+
             </div>
         </div>
-        @endif
     </div>
 </div>
 @endsection
