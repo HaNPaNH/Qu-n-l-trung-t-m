@@ -4,7 +4,7 @@
     @if(Auth::check() && Auth::user()->role == 1)
     <div class="row bg-warning justify-content-center">
         <div class="card-body">
-            <h3 class="text-center py-3">DANH SÁCH LỚP</h3>
+            <h3 class="text-center py-3">DANH SÁCH LỚP {{$id}}</h3>
             <div class="border">
                 <table class="table">
                     <thead class="text-center">
@@ -12,7 +12,13 @@
                             <th>STT</th>
                             <th>Mã học viên</th>
                             <th>Tên học viên</th>
-                            <th></th>
+                            <th>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md">
+                                    <a href="{{ route('attendanceInformation', ['id' => $id]) }}"><img
+                                            src="{{asset('assets/attendanceStudent.png')}}" alt="Update" width=30px
+                                            height=30px></a>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
@@ -43,7 +49,7 @@
     @else
     <div class="row bg-warning justify-content-center">
         <div class="card-body">
-            <h3 class="text-center py-3">DANH SÁCH LỚP</h3>
+            <h3 class="text-center py-3">DANH SÁCH LỚP {{$id}}</h3>
             <div class="border">
                 <table class="table">
                     <thead class="text-center">

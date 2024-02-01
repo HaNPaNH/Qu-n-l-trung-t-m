@@ -32,6 +32,9 @@ class TeacherController extends Controller
         // Lấy thông tin người dùng đăng nhập
         $userId = Auth::user()->id;
          
+        $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         // Tạo mới infor học sinh
         $teacher = new Teacher();
         $teacher->user_id = $userId;
@@ -49,9 +52,9 @@ class TeacherController extends Controller
          return view('Teachers.editTeacherInformation', compact('teacher'));
     }
     public function updateTeacherInformation(Request $request, $id) {
-        //  $request->validate([
-        //     'phone' => 'required|numeric|max:10',
-        // ]);
+        $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         
         $teacher = Teacher::findOrFail($id);
         

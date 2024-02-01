@@ -21,6 +21,9 @@
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="Mã lớp học" id="class_code" class="form-control"
                                     name="class_code" required>
+                                @if ($errors->has('class_code'))
+                                <span class=" text-danger">{{ $errors->first('class_code') }}</span>
+                                @endif
                             </div>
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="Tên lớp học" id="name" class="form-control" name="name"
@@ -37,14 +40,17 @@
                             <div class="form-group mb-3">
                                 <input type="number" placeholder="Học phí" id="fee" class="form-control" name="fee"
                                     required>
+
                             </div>
                             <div class="form-group mb-3">
                                 <input type="number" placeholder="Số lượng dự kiến" id="prediction_number"
                                     class="form-control" name="prediction_number" required>
+
                             </div>
                             <div class="form-group mb-3">
                                 <input type="number" placeholder="Số buổi học" id="lessons_number" class="form-control"
                                     name="lessons_number" required>
+
                             </div>
                             <div class="d-grid mx-auto">
                                 <button type="submit" class="btn btn-dark btn-block">Xác nhận</button>

@@ -32,6 +32,9 @@ class AdminController extends Controller
     }
      public function updateAdminProfile(Request $request, $id) {
         
+        $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         // gán dữ liệu gửi lên vào biến data
         $data = $request->all();
        
@@ -168,11 +171,12 @@ class AdminController extends Controller
         // dd($id);
         $classAttendances = DB::table('students')
         ->join('attendances','attendances.student_id','=','students.id')
-        // ->join('classrooms','classrooms.id','=','attendances.class_id')
+        ->join('classrooms','classrooms.id','=','attendances.class_id')
         ->where('attendances.class_id', $id)
         ->select('students.name', 'attendances.attendance_day', 'attendances.has_attendance', 'attendances.id')
         ->get();
         // dd($classAttendances);
+
         foreach ($classAttendances as $classAttendance) {
             if ($classAttendance->has_attendance == 0) {
                 $classAttendance->has_attendance_text = 'Vắng';
@@ -180,7 +184,11 @@ class AdminController extends Controller
                 $classAttendance->has_attendance_text = 'Có';
             }
         }
-        return view('admins.manageClass.attendanceInformation', compact('classAttendances'));
+        $role = Auth::user()->role;
+        if ($role == 0) {
+            return view('admins.manageClass.attendanceInformation', compact('classAttendances', 'id'));
+        } 
+        return view('teachers.attendance', compact('classAttendances', 'id'));
     }
     public function attendanceStudent($id){
         
@@ -195,6 +203,11 @@ class AdminController extends Controller
         return redirect()->route('attendanceInformation', $attendanceClassId);
     }
     public function deleteStudent($id){
+          
+        // $user=DB::table('users')
+        // ->join('students', 'students.user_id','=','users.id')
+        // ->where('students.id', $id)
+        // ->first();
         
         $student_classes = Student_class::where('student_id', $id)->get();
         
@@ -213,15 +226,6 @@ class AdminController extends Controller
             $attendance->delete();
         }
         
-        // $user=DB::table('users')
-        // ->join('students', 'students.user_id','=','users.id')
-        // ->where('students.id', $id)
-        // ->first();
-
-        // if ($user) {
-        //     $user->delete();
-        // }
-        
         $student=Student::find($id);
         
         if($student){
@@ -231,8 +235,6 @@ class AdminController extends Controller
         $listStudents = DB::table('students')
           ->select('id', 'name')
           ->get();
-
-        //   dd($listStudents);
         
         return view('admins.manageStudent.listStudent', compact('listStudents'));
     }
@@ -254,6 +256,11 @@ class AdminController extends Controller
         return view('admins.manageClass.addClass');
     }
     public function saveClass(Request $request){
+        
+        $request->validate([
+            'class_code' => 'required|max:4',
+        ]);
+        
         $class = new Classroom();
         
         $class->level_id = $request->input('level');
@@ -299,7 +306,9 @@ class AdminController extends Controller
     }
      public function updateClass(Request $request, $id) {
         
-        // $class = Classroom::findOrFail($id);
+        $request->validate([
+            'class_code' => 'required|max:4',
+        ]);
         
         // gán dữ liệu gửi lên vào biến data
         $data = $request->all();
@@ -316,6 +325,9 @@ class AdminController extends Controller
     }
      public function updateStudent(Request $request, $id) {
         
+        $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         // gán dữ liệu gửi lên vào biến data
         $data = $request->all();
        
@@ -331,6 +343,9 @@ class AdminController extends Controller
     }
      public function updateTeacher(Request $request, $id) {
         
+        $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         // gán dữ liệu gửi lên vào biến data
         $data = $request->all();
        

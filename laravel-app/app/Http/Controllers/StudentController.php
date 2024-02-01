@@ -31,9 +31,9 @@ class StudentController extends Controller
     }
     public function saveStudentInformation(Request $request)
     {
-        // Lấy giá trị $classId từ session
-        // $classroom = Classroom::find($classId);
-        // dd($classroom);
+        $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         
         // Lấy thông tin người dùng đăng nhập
         $userId = Auth::user()->id;
@@ -118,10 +118,9 @@ class StudentController extends Controller
          return view('students.editStudentInformation', compact('student'));
     }
      public function updateStudentInformation(Request $request, $id) {
-        //  $request->validate([
-        //     'phone' => 'required|numeric|max:10',
-        // ]);
-        
+         $request->validate([
+            'phone' => 'required|max:10',
+        ]);
         $student = Student::findOrFail($id);
         
         // gán dữ liệu gửi lên vào biến data

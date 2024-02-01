@@ -1,7 +1,7 @@
 @extends('auth.layouts')
 @section('content')
 <div class="container" style="width:50%;">
-    <h3 class="text-center">CHI TIẾT LỚP HỌC</h3>
+    <h3 class="text-center">CHI TIẾT LỚP HỌC {{$classroom->id}}</h3>
     <div class="row bg-warning my-3">
         <div class="border border-black p-3">
             <p><b>Mã lớp</b>: {{ $classroom->class_code }}</p>

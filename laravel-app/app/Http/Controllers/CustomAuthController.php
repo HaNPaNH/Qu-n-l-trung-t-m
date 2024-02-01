@@ -18,6 +18,7 @@ class CustomAuthController extends Controller
         'email' => 'required',
         'password' => 'required',
     ]);
+    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $role = Auth::user()->role;
@@ -31,6 +32,7 @@ class CustomAuthController extends Controller
         }
         return redirect("login")->withSuccess('Login details are not valid');
     }
+
     public function registration()
     {
         return view('auth.register');
@@ -42,7 +44,7 @@ class CustomAuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
-
+        
         $data = $request->all();
         User::create($data);
         // $user = $this->create($data);

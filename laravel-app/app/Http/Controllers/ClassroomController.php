@@ -22,8 +22,9 @@ class ClassroomController extends Controller
           ->join('classrooms', 'student_classes.class_id', '=', 'classrooms.id')
           ->join('students', 'student_classes.student_id', '=', 'students.id')
           ->where('student_classes.class_id', $id)
-          ->select('student_classes.student_id as student_id', 'students.name as student_name')
+          ->select('student_classes.student_id as student_id', 'students.name as student_name', 'student_classes.class_id as class_id')
           ->get();
+
         // dd($listClassStudents);
         // $classAttendances = DB::table('students')
         // ->join('attendances','attendances.student_id','=','students.id')
@@ -34,7 +35,7 @@ class ClassroomController extends Controller
         
         // dd($classAttendances);
         
-        return view('classrooms.listSClass', compact('listClassStudents'));
+        return view('classrooms.listSClass', compact('listClassStudents', 'id'));
     }
     public function detailClass($id)
     {

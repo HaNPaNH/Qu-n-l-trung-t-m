@@ -1,9 +1,9 @@
 @extends('admins.index')
 @section('content')
-<div>
-    <div class="container py-3" style="width:50%;">
-        @foreach($waitTeacherClasses as $waitTeacherClass)
-        <div class="popup py-3">
+<div class="p-3 py-5">
+    @foreach($waitTeacherClasses as $waitTeacherClass)
+    <div class="container bg-info my-3 py-3" style="width:50%;">
+        <div class="popup">
             <p><b>Mã lớp:</b> {{ $waitTeacherClass->class_code }}</p>
             <p><b>Tên lớp:</b> {{ $waitTeacherClass->class_name }}</p>
             <p><b>Giáo viên:</b> {{ $waitTeacherClass->teacher_name }}</p>
@@ -16,7 +16,7 @@
                         chối</button></a>
             </div>
         </div>
-        @endforeach
     </div>
+    @endforeach
 </div>
 @endsection
