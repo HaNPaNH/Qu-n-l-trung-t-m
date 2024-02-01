@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <!-- Google Font: Source Sans Pro -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('admin-lte/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{asset('admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
@@ -76,7 +79,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ route('listStudent') }}" class="nav-link">
+                            <a class="nav-link" data-toggle="pill" href="{{ route('listStudent') }}">
                                 <img src="{{asset('assets/icon-student.jpg')}}" alt="" width=20px height=20px>
                                 <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
                                 <p>
@@ -85,7 +88,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('listTeacher') }}" class="nav-link">
+                            <a class="nav-link" data-toggle="pill" href="{{ route('listTeacher') }} ">
                                 <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
                                 <img src="{{asset('assets/icon-teacher.jpg')}}" alt="" width=20px height=20px>
                                 <p>
@@ -94,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('listClass') }}" class="nav-link">
+                            <a class="nav-link" data-toggle="pill" href="{{ route('listClass') }}">
                                 <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
                                 <img src="{{asset('assets/icon-class.jpg')}}" alt="" width=20px height=20px>
                                 <p>
@@ -138,8 +141,8 @@
     $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <!-- <script src="{{asset('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    ChartJS -->
+    <script src="{{asset('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- ChartJS -->
     <script src="{{asset('admin-lte/plugins/chart.js/Chart.min.js')}}"></script>
     <!-- Sparkline -->
     <script src="{{asset('admin-lte/plugins/sparklines/sparkline.js')}}"></script>
@@ -163,6 +166,11 @@
     <script src="{{asset('admin-lte/dist/js/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('admin-lte/dist/js/pages/dashboard.js')}}"></script>
+    <script src="{{asset('admin-lte/build/js/Treeview.js')}}"></script>
+    <script src="{{asset('admin-lte/build/js/SidebarSearch.js')}}"></script>
+    <script src="{{asset('admin-lte/build/js/CardRefresh.js')}}"></script>
+    <script src="{{asset('admin-lte/build/js/CardReWidget.js')}}"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

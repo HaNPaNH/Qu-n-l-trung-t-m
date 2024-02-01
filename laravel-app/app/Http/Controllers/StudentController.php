@@ -83,8 +83,28 @@ class StudentController extends Controller
     }
     public function allSClass()
     {
-        $classrooms = Classroom::all();
-        return view('students.allSClass',compact('classrooms'));
+        $userId = Auth::user()->id;
+        // dd($userId);
+
+        $studentId = Student::where("user_id", $userId)->first()->id;
+
+        $studentClass = DB::table('student_classes')
+        ->where('student_classes.student_id', $studentId)
+        ->get();
+
+        $classIds = [];
+        foreach ($studentClass as $class) {
+            $classIds[] = $class->class_id;
+        }
+        // dd($classIds);
+        
+        $classrooms = DB::table('classrooms')
+        ->whereNotIn('id', $classIds)
+        ->get();
+        
+        // dd($classrooms);
+        
+        return view('students.allSClass', compact('classrooms'));
     }
     public function waitClass()
     {

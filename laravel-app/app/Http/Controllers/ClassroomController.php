@@ -24,16 +24,6 @@ class ClassroomController extends Controller
           ->where('student_classes.class_id', $id)
           ->select('student_classes.student_id as student_id', 'students.name as student_name', 'student_classes.class_id as class_id')
           ->get();
-
-        // dd($listClassStudents);
-        // $classAttendances = DB::table('students')
-        // ->join('attendances','attendances.student_id','=','students.id')
-        // ->join('classrooms','classrooms.id','=','attendances.class_id')
-        // ->where('attendances.class_id', $id)
-        // ->select('attendances.student_id as student_id', 'students.name as student_name', 'attendances.attendance_day', 'attendances.has_attendance', 'attendances.id as id')
-        // ->get();
-        
-        // dd($classAttendances);
         
         return view('classrooms.listSClass', compact('listClassStudents', 'id'));
     }
@@ -43,34 +33,34 @@ class ClassroomController extends Controller
      //     dd($classroom);
          return view('classrooms.detailClass', compact('classroom'));
     }
-    public function checkStudentClass($classId)
-    {
-        $userId = Auth::user()->id;
-        // dd($userId);
+    // public function checkStudentClass($classId)
+    // {
+    //     $userId = Auth::user()->id;
+    //     // dd($userId);
         
-        $student = Student::where('user_id', $userId)->first();
-        // dd($student);
+    //     $student = Student::where('user_id', $userId)->first();
+    //     // dd($student);
 
-        if ($student){
-            $studentId = Student::where('user_id', $userId)->first()->id;
-             // Kiểm tra xem học sinh đã đăng ký lớp học hay chưa
-            $isRegistered = DB::table('student_classes')
-            ->where('student_classes.class_id', $classId)
-            ->where('student_id', $studentId)
-            ->select('student_classes.student_id')
-            ->first();
-            // dd($isRegistered); 
-            if ($isRegistered) {
-            // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
-                // return redirect()->route('studentClass');
-                return view('classrooms.popupRegistered', ['classId' => $classId]);
-            }
-            // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
-            return redirect()->route('registerSClass', $classId);
-        }
-        // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
-        return redirect()->route('registerSClass', $classId);
-    }
+    //     if ($student){
+    //         $studentId = Student::where('user_id', $userId)->first()->id;
+    //          // Kiểm tra xem học sinh đã đăng ký lớp học hay chưa
+    //         $isRegistered = DB::table('student_classes')
+    //         ->where('student_classes.class_id', $classId)
+    //         ->where('student_id', $studentId)
+    //         ->select('student_classes.student_id')
+    //         ->first();
+    //         // dd($isRegistered); 
+    //         if ($isRegistered) {
+    //         // Đã đăng ký lớp học, chuyển hướng đến trang khóa học của tôi
+    //             // return redirect()->route('studentClass');
+    //             return view('classrooms.popupRegistered', ['classId' => $classId]);
+    //         }
+    //         // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
+    //         return redirect()->route('registerSClass', $classId);
+    //     }
+    //     // Chưa đăng ký lớp học, chuyển hướng thông báo xác nhận đăng ký
+    //     return redirect()->route('registerSClass', $classId);
+    // }
     public function registerSClass($classId)
     {
         $classroom = Classroom::find($classId);

@@ -82,8 +82,25 @@ class TeacherController extends Controller
     }
     public function allTClass()
     {           
-        $classrooms = Classroom::all();
-        //   dd($classrooms);
+        $userId = Auth::user()->id;
+        // dd($userId);
+
+        $teacherId = Teacher::where("user_id", $userId)->first()->id;
+
+        $teacherClass = DB::table('teacher_classes')
+        ->where('teacher_classes.teacher_id', $teacherId)
+        ->get();
+
+        $classIds = [];
+        foreach ($teacherClass as $class) {
+            $classIds[] = $class->class_id;
+        }
+        // dd($classIds);
+        
+        $classrooms = DB::table('classrooms')
+        ->whereNotIn('id', $classIds)
+        ->get();
+        
          return view('teachers.allTClass', compact('classrooms'));
     }
     public function waitClass()
